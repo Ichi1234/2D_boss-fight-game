@@ -3,19 +3,28 @@ using UnityEngine.InputSystem;
 
 public class Player : Entity
 {
-    private Vector2 moveInput;
+    public Player_IdleState playerIdleState { get; private set; }
+    public Player_MoveState playerMoveState { get; private set; }
+    
+    public Vector2 moveInput;
     private PlayerInputSet input;
 
-    private void Awake()
+
+    protected override void Awake()
     {
+        base.Awake();
+
+        playerIdleState = new Player_IdleState(this, stateMachine);
+        playerMoveState = new Player_MoveState(this, stateMachine);
+
         input = new PlayerInputSet();
+
+        stateMachine.Initialize(playerIdleState);
     }
 
-    public override void Update()
+    protected override void Update()
     {
         base.Update();
-
-        Debug.Log(moveInput);
     }
 
 

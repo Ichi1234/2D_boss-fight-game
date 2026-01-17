@@ -2,13 +2,20 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    public virtual void Start()
+    public StateMachine stateMachine { get; private set; }
+
+    protected virtual void Awake()
+    {
+        stateMachine = new StateMachine();
+    }
+
+    protected virtual void Start()
     {
         
     }
 
-    public virtual void Update()
+    protected virtual void Update()
     {
-        
+        stateMachine.CallUpdateCurrentState();
     }
 }
