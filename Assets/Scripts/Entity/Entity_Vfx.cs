@@ -3,8 +3,7 @@ using UnityEngine;
 public class Entity_Vfx : MonoBehaviour
 {
     [Header("Attack Details")]
-    [SerializeField] private VfxObject attackPrefab;
-    [SerializeField] private Transform attackPosition;
+    [SerializeField] private Transform attackVfx;
 
     private void Awake()
     {
@@ -12,6 +11,6 @@ public class Entity_Vfx : MonoBehaviour
     }
     public void CreateAttackVfx()
     {
-        Instantiate(attackPrefab, attackPosition);
+        attackVfx.gameObject.SetActive(true);
     }
 }

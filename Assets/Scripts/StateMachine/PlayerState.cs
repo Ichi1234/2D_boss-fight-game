@@ -7,6 +7,7 @@ public abstract class PlayerState : EntityState
     protected Animator anim;
     protected PlayerInputSet input;
     private float lastDashTime;
+    private float lastAttackTime;
 
     public PlayerState(Player player, StateMachine stateMachine, string animParam) : base(stateMachine, animParam)
     {
@@ -18,6 +19,7 @@ public abstract class PlayerState : EntityState
         input = player.input;
 
         lastDashTime -= player.dashCooldown;
+        lastAttackTime -= player.attackCooldown;
     }
 
     public override void Enter()
@@ -36,18 +38,17 @@ public abstract class PlayerState : EntityState
             return;
         }
 
-        if (input.Player.Attack.WasPerformedThisFrame())
+        if (input.Player.Attack.WasPressedThisFrame() && CanAttack())
         {
             stateMachine.ChangeState(player.attackState);
+            lastAttackTime = Time.time;
         }
-        
-        if (input.Player.Dash.WasPerformedThisFrame())
+
+        if (input.Player.Dash.WasPerformedThisFrame() && CanDash())
         {
-            if (CanDash())
-            {
-                stateMachine.ChangeState(player.dashState);
-                lastDashTime = Time.time;
-            }
+            stateMachine.ChangeState(player.dashState);
+            lastDashTime = Time.time;
+            
         
         }
        
@@ -69,4 +70,5 @@ public abstract class PlayerState : EntityState
     }
 
     protected bool CanDash() => Time.time - lastDashTime > player.dashCooldown;
+    protected bool CanAttack() => Time.time - lastAttackTime > player.attackCooldown;
 }

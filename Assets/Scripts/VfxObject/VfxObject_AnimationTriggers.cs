@@ -13,7 +13,7 @@ public class VfxObject_AnimationTriggers : MonoBehaviour
 
     private void AnimationFinish()
     {
-        Destroy(currentObject.gameObject);
+        currentObject.gameObject.SetActive(false);
         entityAnimationTriggers.AnimationFinish();
     }
 }

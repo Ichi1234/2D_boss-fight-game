@@ -12,7 +12,6 @@ public class Player_AttackState : PlayerState
         base.Enter();
 
         entityVfx.CreateAttackVfx();
-
     }
 
     public override void Update()
