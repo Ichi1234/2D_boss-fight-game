@@ -13,8 +13,16 @@ public class Player_AttackState : PlayerState
 
         entityVfx.CreateAttackVfx();
 
-        
-        //stateMachine.ChangeState(player.idleState);
+    }
+
+    public override void Update()
+    {
+        base.Update();
+
+        if (triggerCalled)
+        {
+            stateMachine.ChangeState(player.idleState);
+        }
     }
 
 

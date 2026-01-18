@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 105400830}
   - component: {fileID: 105400831}
   - component: {fileID: 105400832}
+  - component: {fileID: 105400833}
   m_Layer: 0
   m_Name: Animator
   m_TagString: Untagged
@@ -233,6 +234,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &105400833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105400829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8078cf6ac673cb4f84c195efd165af8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entity_AnimationTriggers
 --- !u!1 &116391138
 GameObject:
   m_ObjectHideFlags: 0

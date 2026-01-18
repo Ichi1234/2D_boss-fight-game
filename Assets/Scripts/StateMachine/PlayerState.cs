@@ -36,6 +36,11 @@ public abstract class PlayerState : EntityState
             return;
         }
 
+        if (input.Player.Attack.WasPerformedThisFrame())
+        {
+            stateMachine.ChangeState(player.attackState);
+        }
+        
         if (input.Player.Dash.WasPerformedThisFrame())
         {
             if (CanDash())
@@ -51,10 +56,6 @@ public abstract class PlayerState : EntityState
             stateMachine.ChangeState(player.jumpState);
         }
 
-        if (input.Player.Attack.WasPerformedThisFrame())
-        {
-            stateMachine.ChangeState(player.attackState);
-        }
 
     }
 

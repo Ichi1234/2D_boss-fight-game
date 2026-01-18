@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class StateMachine
 {
-    private EntityState currentState;
+    public EntityState currentState;
 
     public void Initialize(EntityState initialState)
     {

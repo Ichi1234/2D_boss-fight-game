@@ -5,8 +5,11 @@ public abstract class EntityState
 {
     public StateMachine stateMachine { get; private set; }
     protected float stateTimer;
+
     protected Entity_Vfx entityVfx;
     public string animParam { get; private set; }
+    protected bool triggerCalled = false;
+
 
     protected EntityState(StateMachine stateMachine, string animParam)
     {
@@ -17,6 +20,7 @@ public abstract class EntityState
 
     public virtual void Enter()
     {
+        triggerCalled = false;
     }
 
     public virtual void Update()
@@ -30,8 +34,15 @@ public abstract class EntityState
 
     }
 
+    public void AnimationTriggered()
+    {
+        triggerCalled = true;
+    }
+
     public virtual void UpdateAnimationParameter(bool activate)
     {
 
     }
+
+
 }
