@@ -20,12 +20,6 @@ public class Player : Entity
     private Coroutine jumpAnimationCo;
 
 
-    [Header("Collision Detection")]
-    [SerializeField] private float checkGroundLine;
-    [SerializeField] private LayerMask groundLayer;
-    public bool isGround { get; private set; }
-
-
     protected override void Awake()
     {
         base.Awake();
@@ -46,7 +40,6 @@ public class Player : Entity
     {
         base.Update();
 
-        isGround = GroundDetected();
     }
 
 
@@ -68,15 +61,6 @@ public class Player : Entity
     {
         rb.linearVelocity = new Vector2(velocityX, velocityY);
     }
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -checkGroundLine));
-    }
-
-    private bool GroundDetected()
-    {
-        return Physics2D.Raycast(transform.position, Vector2.down, checkGroundLine, groundLayer);
-    }
 
     public void JumpAnimation()
     {
@@ -90,29 +74,16 @@ public class Player : Entity
 
     public IEnumerator JumpAnimationCo(Vector3 originalScale)
     {
-        Vector3 shrinkTo = new Vector3(originalScale.x / 2, originalScale.y * 1.5f);
+        Vector3 shrinkTo = new Vector3(originalScale.x / 2, originalScale.y * 1.2f);
 
-        StartCoroutine(PlayerTransformAnimation(transform.localScale, shrinkTo, 0.5f));
+        StartCoroutine(ChangeTransformAnimation(transform.localScale, shrinkTo, 0.5f));
 
         yield return new WaitForSeconds(1);
 
-        StartCoroutine(PlayerTransformAnimation(transform.localScale, originalScale, 0.5f));
+        StartCoroutine(ChangeTransformAnimation(transform.localScale, originalScale, 0.5f));
 
     }
 
-    public IEnumerator PlayerTransformAnimation(Vector3 start, Vector3 end, float duration)
-    {
-        float currentTime = 0;
 
-        while (currentTime < duration)
-        {
-            currentTime += Time.deltaTime;
-            float t = currentTime / duration;
-            transform.localScale = Vector3.Lerp(start, end, t);
-            yield return null;
-        }
-
-        transform.localScale = end;
-    }
 
 }
