@@ -8,9 +8,12 @@ public class Player : Entity
     public Player_MoveState moveState { get; private set; }
     public Player_JumpState jumpState { get; private set; }
     public Player_DashState dashState { get; private set; }
-    public Player_AttackState attackState { get; private set; }
+    public Player_BasicAttackState basicAttackState { get; private set; }
+    public Player_UpAttackState upAttackState { get; private set; }
+    public Player_DownAttackState downAttackState { get; private set; }
 
     private Rigidbody2D rb;
+    private Animator anim;
 
     public Vector2 moveInput { get; private set; }
     public PlayerInputSet input { get; private set; }
@@ -37,12 +40,16 @@ public class Player : Entity
 
         input = new PlayerInputSet();
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
+        anim.SetBool("isIdle", true);
 
         idleState = new Player_IdleState(this, stateMachine, "isIdle");
         moveState = new Player_MoveState(this, stateMachine, "isMoving");
-        attackState = new Player_AttackState(this, stateMachine, "isAttacking");
         jumpState = new Player_JumpState(this, stateMachine, "");
         dashState = new Player_DashState(this, stateMachine, "");
+        basicAttackState = new Player_BasicAttackState(this, stateMachine, "isBasicAttack");
+        upAttackState = new Player_UpAttackState(this, stateMachine, "isUpAttack");
+        downAttackState = new Player_DownAttackState(this, stateMachine, "isDownAttack");
 
         stateMachine.Initialize(idleState);
 

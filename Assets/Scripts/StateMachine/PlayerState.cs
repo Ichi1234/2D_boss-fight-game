@@ -40,7 +40,7 @@ public abstract class PlayerState : EntityState
 
         if (input.Player.Attack.WasPressedThisFrame() && CanAttack())
         {
-            stateMachine.ChangeState(player.attackState);
+            HandleAttackTypes();
             lastAttackTime = Time.time;
         }
 
@@ -69,6 +69,21 @@ public abstract class PlayerState : EntityState
         anim.SetBool(animParam, activate);
     }
 
+    private void HandleAttackTypes()
+    {
+        if (player.moveInput.y == 1)
+        {
+            stateMachine.ChangeState(player.upAttackState);
+        }
+        else if (player.moveInput.y == -1 && !player.isGround)
+        {
+            stateMachine.ChangeState(player.downAttackState);
+        }
+        else
+        {
+            stateMachine.ChangeState(player.basicAttackState);
+        }
+    }
     protected bool CanDash() => Time.time - lastDashTime > player.dashCooldown;
     protected bool CanAttack() => Time.time - lastAttackTime > player.attackCooldown;
 }
