@@ -9,10 +9,14 @@ public class Player_BasicAttackState : Player_AttackState
 
     public override void Enter()
     {
+        player.canFlip = false;
         HandleAttackPosition(PlayerAttackTypes.Basic);
         HandleAttackRotation(PlayerAttackTypes.Basic);
 
         base.Enter();
+
+        player.SetVelocity(0, rb.linearVelocity.y);
+
 
     }
 
@@ -21,6 +25,13 @@ public class Player_BasicAttackState : Player_AttackState
         base.Update();
 
         
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+        player.canFlip = true;
     }
 
 

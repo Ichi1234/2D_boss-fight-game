@@ -7,6 +7,8 @@ public class Entity : MonoBehaviour
     [Header("Collision Detection")]
     [SerializeField] private float checkGroundLine;
     [SerializeField] private LayerMask groundLayer;
+
+    public bool canFlip = true;
     public bool isGround { get; private set; }
 
     public float facingDir = 1;

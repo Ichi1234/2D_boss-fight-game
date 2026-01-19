@@ -87,7 +87,7 @@ public class Player : Entity
 
     public void HandleFlip()
     {
-        if (moveInput.x != facingDir && moveInput.x != 0)
+        if (moveInput.x != facingDir && moveInput.x != 0 && canFlip)
         {
             Flip();
         }

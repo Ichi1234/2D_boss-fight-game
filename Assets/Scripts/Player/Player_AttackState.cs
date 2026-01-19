@@ -10,6 +10,8 @@ public class Player_AttackState : PlayerState
 
     public override void Enter()
     {
+        stateMachine.canChangeState = false;
+
         base.Enter();
 
         entityVfx.CreateAttackVfx();
@@ -22,6 +24,7 @@ public class Player_AttackState : PlayerState
 
         if (triggerCalled)
         {
+            stateMachine.canChangeState = true;
             stateMachine.ChangeState(player.idleState);
         }
     }
