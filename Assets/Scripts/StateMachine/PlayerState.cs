@@ -7,6 +7,7 @@ public abstract class PlayerState : EntityState
     protected Animator anim;
     protected PlayerInputSet input;
     private float lastDashTime;
+    private float lastAttackTime;
 
     public PlayerState(Player player, StateMachine stateMachine, string animParam) : base(stateMachine, animParam)
     {
@@ -14,9 +15,11 @@ public abstract class PlayerState : EntityState
 
         rb = player.GetComponent<Rigidbody2D>();
         anim = player.GetComponentInChildren<Animator>();
+        entityVfx = player.GetComponent<Entity_Vfx>();
         input = player.input;
 
         lastDashTime -= player.dashCooldown;
+        lastAttackTime -= player.attackCooldown;
     }
 
     public override void Enter()
@@ -35,13 +38,17 @@ public abstract class PlayerState : EntityState
             return;
         }
 
-        if (input.Player.Dash.WasPerformedThisFrame())
+        if (input.Player.Attack.WasPressedThisFrame() && CanAttack())
         {
-            if (CanDash())
-            {
-                stateMachine.ChangeState(player.dashState);
-                lastDashTime = Time.time;
-            }
+            HandleAttackTypes();
+            lastAttackTime = Time.time;
+        }
+
+        if (input.Player.Dash.WasPerformedThisFrame() && CanDash())
+        {
+            stateMachine.ChangeState(player.dashState);
+            lastDashTime = Time.time;
+            
         
         }
        
@@ -49,6 +56,7 @@ public abstract class PlayerState : EntityState
         {
             stateMachine.ChangeState(player.jumpState);
         }
+
 
     }
 
@@ -61,5 +69,21 @@ public abstract class PlayerState : EntityState
         anim.SetBool(animParam, activate);
     }
 
+    private void HandleAttackTypes()
+    {
+        if (player.moveInput.y == 1)
+        {
+            stateMachine.ChangeState(player.upAttackState);
+        }
+        else if (player.moveInput.y == -1 && !player.isGround)
+        {
+            stateMachine.ChangeState(player.downAttackState);
+        }
+        else
+        {
+            stateMachine.ChangeState(player.basicAttackState);
+        }
+    }
     protected bool CanDash() => Time.time - lastDashTime > player.dashCooldown;
+    protected bool CanAttack() => Time.time - lastAttackTime > player.attackCooldown;
 }

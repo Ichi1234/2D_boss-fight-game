@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class StateMachine
 {
-    private EntityState currentState;
+    public EntityState currentState;
+    public bool canChangeState = true;
 
     public void Initialize(EntityState initialState)
     {
@@ -12,12 +13,16 @@ public class StateMachine
 
     public void ChangeState(EntityState newState)
     {
-        currentState.Exit();
-        UpdateAnimationParameter(false);
+        if (canChangeState)
+        {
+            currentState.Exit();
+            UpdateAnimationParameter(false);
 
-        currentState = newState;
-        currentState.Enter();
-        UpdateAnimationParameter(true);
+            currentState = newState;
+            currentState.Enter();
+            UpdateAnimationParameter(true);
+        }
+        
     }
 
     public void CallUpdateCurrentState()
