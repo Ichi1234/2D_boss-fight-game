@@ -677,7 +677,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.07, y: -2.33, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 105400830}
   - {fileID: 1212231442}
@@ -797,6 +797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entity_Health
   maxHealth: 100
+  uiHealthbar: {fileID: 985965049}
   curHealth: 0
 --- !u!114 &372218138
 MonoBehaviour:
@@ -1638,6 +1639,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 985965047}
+  - component: {fileID: 985965049}
   - component: {fileID: 985965048}
   m_Layer: 5
   m_Name: PlayerHealthBar
@@ -1718,6 +1720,18 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &985965049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985965046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ac1f16a8f54eac43bbb3666993dcba8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI_HealthBar
 --- !u!1 &1023174193
 GameObject:
   m_ObjectHideFlags: 0
@@ -1727,6 +1741,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1023174194}
+  - component: {fileID: 1023174196}
   - component: {fileID: 1023174195}
   m_Layer: 5
   m_Name: BossHealthBar
@@ -1808,6 +1823,18 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1023174196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023174193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ac1f16a8f54eac43bbb3666993dcba8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI_HealthBar
 --- !u!1 &1200868000
 GameObject:
   m_ObjectHideFlags: 0
@@ -2164,7 +2191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc5bf1dd0e9e27a4e943bd173c893a7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entity_Health
-  maxHealth: 100
+  maxHealth: 1000
+  uiHealthbar: {fileID: 1023174196}
   curHealth: 0
 --- !u!212 &1170147038535146521
 SpriteRenderer:
