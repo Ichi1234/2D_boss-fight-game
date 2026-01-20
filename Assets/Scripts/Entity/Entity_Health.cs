@@ -15,11 +15,12 @@ public class Entity_Health : MonoBehaviour
     private void Start()
     {
         uiHealthbar.SetupMaxSliderHealthValue(maxHealth);
+        UpdateHealthUI();
     }
 
     private void UpdateHealthUI()
     {
-        uiHealthbar.UpdateHealth(GetPercentHealth());
+        uiHealthbar.UpdateHealth(curHealth);
     }
 
     public float GetPercentHealth() => curHealth / maxHealth * 100;

@@ -12,7 +12,6 @@ public class UI_HealthBar : MonoBehaviour
 
     public void UpdateHealth(float healthValue)
     {
-        Debug.Log(healthValue);
         slider.value = healthValue;
         
     }
