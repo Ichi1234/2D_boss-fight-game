@@ -4,6 +4,10 @@ using UnityEngine.InputSystem;
 
 public class Player : Entity
 {
+
+    private Coroutine movementAnimationCo;
+    private Vector3 originalScale;
+
     public Player_IdleState idleState { get; private set; }
     public Player_MoveState moveState { get; private set; }
     public Player_JumpState jumpState { get; private set; }
@@ -12,22 +16,8 @@ public class Player : Entity
     public Player_UpAttackState upAttackState { get; private set; }
     public Player_DownAttackState downAttackState { get; private set; }
 
-    private Rigidbody2D rb;
-    private Animator anim;
-
     public Vector2 moveInput { get; private set; }
     public PlayerInputSet input { get; private set; }
-
-
-    [Header("Movement Detail")]
-    public float moveSpeed;
-    public float jumpForce;
-    public float dashForce;
-    public float dashDuration;
-    public float dashCooldown = 5;
-
-    private Coroutine movementAnimationCo;
-    private Vector3 originalScale;
 
 
     protected override void Awake()
@@ -35,9 +25,6 @@ public class Player : Entity
         base.Awake();
 
         input = new PlayerInputSet();
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponentInChildren<Animator>();
-        anim.SetBool("isIdle", true);
 
         idleState = new Player_IdleState(this, stateMachine, "isIdle");
         moveState = new Player_MoveState(this, stateMachine, "isMoving");
@@ -54,14 +41,6 @@ public class Player : Entity
 
     }
 
-    protected override void Update()
-    {
-        base.Update();
-
-        HandleFlip();
-    }
-
-
     private void OnEnable()
     {
         input.Enable();
@@ -76,17 +55,29 @@ public class Player : Entity
         input.Disable();
     }
 
-    public void SetVelocity(float velocityX, float velocityY)
-    {
-        rb.linearVelocity = new Vector2(velocityX, velocityY);
-    }
+  
 
-    public void HandleFlip()
+    public override void HandleFlip()
     {
         if (moveInput.x != facingDir && moveInput.x != 0 && canFlip)
         {
             Flip();
         }
+    }
+
+    private IEnumerator ChangeTransformAnimation(Vector3 start, Vector3 end, float duration)
+    {
+        float currentTime = 0;
+
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            float t = currentTime / duration;
+            transform.localScale = Vector3.Lerp(start, end, t);
+            yield return null;
+        }
+
+        transform.localScale = end;
     }
 
     public void JumpAnimation()

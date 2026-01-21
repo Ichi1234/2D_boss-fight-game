@@ -2,16 +2,25 @@ using System.Collections;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 
-public class Entity : MonoBehaviour
+public abstract class Entity : MonoBehaviour
 {
+    [Header("Movement Detail")]
+    public float moveSpeed;
+    public float jumpForce;
+    public float dashForce;
+    public float dashDuration;
+    public float dashCooldown = 5;
+
+
     [Header("Collision Detection")]
     [SerializeField] private float checkGroundLine;
     [SerializeField] private LayerMask groundLayer;
 
     [Header("Attack Details")]
     [SerializeField] public Entity_Combat entityCombat;
-    
 
+    protected Rigidbody2D rb;
+    protected Animator anim;
     public bool canFlip = true;
     public bool isGround { get; private set; }
 
@@ -23,7 +32,11 @@ public class Entity : MonoBehaviour
     {
         stateMachine = new StateMachine();
 
+        rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
         entityCombat = GetComponent<Entity_Combat>();
+
+        anim.SetBool("isIdle", true);
     }
 
     protected virtual void Start()
@@ -37,6 +50,7 @@ public class Entity : MonoBehaviour
 
         isGround = GroundDetected();
 
+        HandleFlip();
     }
 
     public void AnimationTriggered()
@@ -56,19 +70,15 @@ public class Entity : MonoBehaviour
         return Physics2D.Raycast(transform.position, Vector2.down, checkGroundLine, groundLayer);
     }
 
-    protected IEnumerator ChangeTransformAnimation(Vector3 start, Vector3 end, float duration)
+
+    public void SetVelocity(float velocityX, float velocityY)
     {
-        float currentTime = 0;
+        rb.linearVelocity = new Vector2(velocityX, velocityY);
+    }
 
-        while (currentTime < duration)
-        {
-            currentTime += Time.deltaTime;
-            float t = currentTime / duration;
-            transform.localScale = Vector3.Lerp(start, end, t);
-            yield return null;
-        }
+    public virtual void HandleFlip()
+    {
 
-        transform.localScale = end;
     }
 
     protected void Flip()
