@@ -29,10 +29,6 @@ public class Player : Entity
     private Coroutine movementAnimationCo;
     private Vector3 originalScale;
 
-    [Header("Attack Details")]
-    public float attackCooldown = 1;
-    public Transform attackPosition;
-
 
     protected override void Awake()
     {
@@ -117,11 +113,11 @@ public class Player : Entity
     {
         Vector3 shrinkTo = new Vector3(originalScale.x / 2, originalScale.y * 1.2f);
 
-        StartCoroutine(ChangeTransformAnimation(transform.localScale, shrinkTo, 0.5f));
+        StartCoroutine(ChangeTransformAnimation(transform.localScale, shrinkTo, 0.25f));
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
 
-        StartCoroutine(ChangeTransformAnimation(transform.localScale, originalScale, 0.5f));
+        StartCoroutine(ChangeTransformAnimation(transform.localScale, originalScale, 0.25f));
 
     }
 
@@ -129,11 +125,11 @@ public class Player : Entity
     {
         Vector3 shrinkTo = new Vector3(originalScale.x * 1.5f, originalScale.y / 2f);
 
-        StartCoroutine(ChangeTransformAnimation(transform.localScale, shrinkTo, 0.5f));
+        StartCoroutine(ChangeTransformAnimation(transform.localScale, shrinkTo, 0.25f));
 
         yield return new WaitForSeconds(0.5f);
 
-        StartCoroutine(ChangeTransformAnimation(transform.localScale, originalScale, 0.5f));
+        StartCoroutine(ChangeTransformAnimation(transform.localScale, originalScale, 0.25f));
 
     }
 
