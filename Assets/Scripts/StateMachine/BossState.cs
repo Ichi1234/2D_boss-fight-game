@@ -15,6 +15,9 @@ public class BossState : EntityState
     protected float randomChangeState;
     protected float curStateRandomResult;
 
+    protected BossSpecialAttackTypes specialAttackTypes;
+
+    protected float prepareAttackTime = 1;
     private float lastLungeAttckTime;
     private float lastAttackTime;
 
@@ -65,19 +68,22 @@ public class BossState : EntityState
 
                 if (whichFarAttack >= 70)
                 {
-                    stateMachine.ChangeState(boss.leapAttackState);
+                    specialAttackTypes = BossSpecialAttackTypes.LeapAttack;
+                    stateMachine.ChangeState(boss.prepareToAttackState);
                 }
 
                 else if (whichFarAttack >= 30)
                 {
                     // projectile state
-                    stateMachine.ChangeState(boss.leapAttackState);
+                    specialAttackTypes = BossSpecialAttackTypes.LeapAttack;
+                    stateMachine.ChangeState(boss.prepareToAttackState);
                 }
 
                 else
                 {
                     // lunge attack
-                    stateMachine.ChangeState(boss.leapAttackState);
+                    specialAttackTypes = BossSpecialAttackTypes.LeapAttack;
+                    stateMachine.ChangeState(boss.prepareToAttackState);
                 }
 
             }
