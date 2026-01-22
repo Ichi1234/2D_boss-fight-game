@@ -10,6 +10,8 @@ public class BossState : EntityState
     protected float nearPlayerDistance = 8;
     protected float farPlayerDistance = 13;
 
+    private float attackChance = 0.7f;
+
     protected float randomChangeState;
     protected float curStateRandomResult;
 
@@ -34,9 +36,9 @@ public class BossState : EntityState
     {
         base.Enter();
 
-        //stateMachine.canChangeState = false;
+        stateMachine.canChangeState = false;
         curStateRandomResult = Random.value;
-        randomChangeState = Random.Range(0, 100);
+        randomChangeState = Random.value;
     }
 
     public override void Update()
@@ -45,19 +47,50 @@ public class BossState : EntityState
 
         if (Input.GetKey(KeyCode.P))
         {
-            stateMachine.ChangeState(boss.basicAttackState);
+            stateMachine.ChangeState(boss.leapAttackState);
         }
 
-        //if (randomChangeState < 70)
-        //{
-        //    stateMachine.ChangeState(boss.moveState);
-        //}
+        if (randomChangeState < attackChance)
+        {
+            float distanceFromPlayer = GetDistanceBetweenPlayer();
 
-        //else
-        //{
-        //    stateMachine.ChangeState(boss.moveState);
-        //}
+            if (distanceFromPlayer <= nearPlayerDistance)
+            {
+                stateMachine.ChangeState(boss.basicAttackState);
+            }
+
+            else if (distanceFromPlayer >= farPlayerDistance)
+            {
+                float whichFarAttack = Random.Range(0, 100);
+
+                if (whichFarAttack >= 70)
+                {
+                    stateMachine.ChangeState(boss.leapAttackState);
+                }
+
+                else if (whichFarAttack >= 30)
+                {
+                    // projectile state
+                    stateMachine.ChangeState(boss.leapAttackState);
+                }
+
+                else
+                {
+                    // lunge attack
+                    stateMachine.ChangeState(boss.leapAttackState);
+                }
+
+            }
+        }
+
+        else
+        {
+            stateMachine.ChangeState(boss.moveState);
+        }
     }
+
+    protected float GetDistanceBetweenPlayer() => Mathf.Abs(player.transform.position.x - boss.transform.position.x);
+    protected float GetPlayerDirection() => boss.transform.position.x < player.transform.position.x ? 1 : -1;
 
 
 }

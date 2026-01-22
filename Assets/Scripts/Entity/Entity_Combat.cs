@@ -16,7 +16,8 @@ public class Entity_Combat : MonoBehaviour
         if (IsOpponent(targetCollision))
         {
             Entity_Health entityHealth = targetCollision.gameObject.GetComponent<Entity_Health>();
-            entityHealth.ReduceHealth(attackDamage);
+            float attackDir = transform.position.x < targetCollision.transform.position.x ? 1 : -1;
+            entityHealth.TakeDamage(attackDamage, attackDir, targetCollision.transform);
         }
     }
 

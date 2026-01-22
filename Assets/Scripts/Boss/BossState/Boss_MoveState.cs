@@ -65,7 +65,4 @@ public class Boss_MoveState : BossState
 
     }
 
-    private float GetPlayerDirection() => boss.transform.position.x < player.transform.position.x ? 1 : -1;
-
-    private float GetDistanceBetweenPlayer() => Mathf.Abs(player.transform.position.x - boss.transform.position.x);
 }

@@ -13,6 +13,8 @@ public class Boss : Entity
     public Boss_IdleState idleState { get; private set; }
     public Boss_MoveState moveState { get; private set; }
     public Boss_BasicAttackState basicAttackState { get; private set; }
+    public Boss_LeapAttackState leapAttackState { get; private set; }
+    public Boss_SlamAttackState slamAttackState { get; private set; }
 
 
     protected override void Awake()
@@ -26,6 +28,8 @@ public class Boss : Entity
         idleState = new Boss_IdleState(this, stateMachine, "isIdle");
         moveState = new Boss_MoveState(this, stateMachine, "isMoving");
         basicAttackState = new Boss_BasicAttackState(this, stateMachine, "isBasicAttack");
+        leapAttackState = new Boss_LeapAttackState(this, stateMachine, "isLeapAttack");
+        slamAttackState = new Boss_SlamAttackState(this, stateMachine, "isLeapAttack");
        
 
         stateMachine.Initialize(idleState);
