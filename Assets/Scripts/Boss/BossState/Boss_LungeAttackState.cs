@@ -86,7 +86,7 @@ public class Boss_LungeAttackState : BossState
                 boss.SetVelocity(boss.moveSpeed * boss.facingDir * moveSpeedMultiplier, rb.linearVelocity.y);
                 if (smokeVfx == null)
                 {
-                    smokeVfx = entityVfx.CreateSmokeVfx();
+                    smokeVfx = bossVfx.CreateSmokeVfx();
                 }
                 anim.SetBool("isLungeAttack", true);
 

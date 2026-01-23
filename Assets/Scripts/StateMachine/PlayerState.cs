@@ -7,6 +7,7 @@ public abstract class PlayerState : EntityState
     protected PlayerInputSet input;
     private float lastDashTime;
     private float lastAttackTime;
+    protected Entity_Vfx entityVfx;
 
     public PlayerState(Player player, StateMachine stateMachine, string animParam) : base(player, stateMachine, animParam)
     {

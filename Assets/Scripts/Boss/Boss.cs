@@ -21,7 +21,7 @@ public class Boss : Entity
     public Boss_PrepareToAttackState prepareToAttackState { get; private set; }
     public Boss_LungeAttackState lungeAttackState { get; private set; }
 
-    private Entity_Vfx entityVfx;
+    private Boss_Vfx bossVfx;
     private Coroutine lungeAttackFinishedCo;
     public GameObject bigSmokeVfx;
 
@@ -32,7 +32,7 @@ public class Boss : Entity
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
         anim.SetBool("isIdle", true);
-        entityVfx = GetComponent<Entity_Vfx>();
+        bossVfx = GetComponent<Boss_Vfx>();
 
         idleState = new Boss_IdleState(this, stateMachine, "isIdle");
         moveState = new Boss_MoveState(this, stateMachine, "isMoving");
@@ -104,7 +104,7 @@ public class Boss : Entity
     }
     private IEnumerator LungeAttackChangeStateCo()
     {
-        bigSmokeVfx = entityVfx.CreateBigSmoke();
+        bigSmokeVfx = bossVfx.CreateBigSmoke();
 
         SetVelocity(0, 0);
 

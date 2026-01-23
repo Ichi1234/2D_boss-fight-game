@@ -935,8 +935,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entity_Vfx
   attackVfx: {fileID: 3528483140089254388}
-  smokePrefab: {fileID: 0}
-  bigSmokePrefab: {fileID: 0}
   onHitMat: {fileID: 2100000, guid: a00013af81304728b2be1f4309ee2433, type: 2}
 --- !u!114 &372218137
 MonoBehaviour:
@@ -2763,13 +2761,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2059069169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52e7adfaaf15e804988623f3c50a2673, type: 3}
+  m_Script: {fileID: 11500000, guid: 31959a1083b892f4f923c2e50e667ec4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Entity_Vfx
+  m_EditorClassIdentifier: Assembly-CSharp::Boss_Vfx
   attackVfx: {fileID: 1567457776}
+  onHitMat: {fileID: 2100000, guid: a00013af81304728b2be1f4309ee2433, type: 2}
   smokePrefab: {fileID: 8422032922207994480, guid: fb210b050e2009f4eb29a8188b64a8b1, type: 3}
   bigSmokePrefab: {fileID: 2417838570579575918, guid: fd30b29a93a3cac4ca9372df5cf04e83, type: 3}
-  onHitMat: {fileID: 2100000, guid: a00013af81304728b2be1f4309ee2433, type: 2}
 --- !u!212 &1170147038535146521
 SpriteRenderer:
   serializedVersion: 2

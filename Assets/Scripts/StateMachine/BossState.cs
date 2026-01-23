@@ -6,6 +6,7 @@ public class BossState : EntityState
     protected Player player;
     protected Rigidbody2D rb;
     protected Entity_Combat bossCombat;
+    protected Boss_Vfx bossVfx;
 
     protected float nearPlayerDistance = 8;
     protected float farPlayerDistance = 13;
@@ -27,7 +28,7 @@ public class BossState : EntityState
 
         rb = boss.GetComponent<Rigidbody2D>();
         anim = boss.GetComponentInChildren<Animator>();
-        entityVfx = boss.GetComponent<Entity_Vfx>();
+        bossVfx = boss.GetComponent<Boss_Vfx>();
         bossCombat = boss.GetComponent<Entity_Combat>();
         player = boss.GetPlayer();
 
