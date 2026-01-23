@@ -28,6 +28,9 @@ public class Boss_PrepareToAttackState : BossState
                 case BossSpecialAttackTypes.LeapAttack:
                     stateMachine.ChangeState(boss.leapAttackState);
                     break;
+                case BossSpecialAttackTypes.LungeAttack:
+                    stateMachine.ChangeState(boss.lungeAttackState);
+                    break;
             }
         }
     }

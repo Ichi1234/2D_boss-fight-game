@@ -10,11 +10,10 @@ public class Boss_LungeAttackState : BossState
     private bool isJumping = true;
     private float moveSpeedMultiplier = 2.5f;
     private GameObject smokeVfx;
-    private GameObject bigSmokeVfx;
 
     private float farFromGround = 8;
     private float farFromWall = 8;
-    private bool isLeftWallFarthest;
+    private bool jumpToLeftWall;
 
     public Boss_LungeAttackState(Boss boss, StateMachine stateMachine, string animParam, Arena arena) : base(boss, stateMachine, animParam)
     {
@@ -27,9 +26,9 @@ public class Boss_LungeAttackState : BossState
 
         isJumping = true;
         leftWallPos = arena.GetLeftWallPos();
-        rightWallPos = arena.GetLeftWallPos();
+        rightWallPos = arena.GetRightWallPos();
 
-        isLeftWallFarthest = Mathf.Abs(boss.transform.position.x - leftWallPos.x) > Mathf.Abs(boss.transform.position.x - rightWallPos.x) ? true : false;
+        jumpToLeftWall = Random.Range(0, 2) == 1 ? true : false; 
 
         if (boss.facingDir != GetWallDirection())
         {
@@ -44,7 +43,7 @@ public class Boss_LungeAttackState : BossState
 
         DashAfterJump();
 
-        Vector3 destination = isLeftWallFarthest ? new Vector3(leftWallPos.x - farFromWall, leftWallPos.y + farFromGround) : new Vector3(rightWallPos.x + farFromWall, rightWallPos.y + farFromGround);
+        Vector3 destination = jumpToLeftWall ? new Vector3(leftWallPos.x + farFromWall, leftWallPos.y + farFromGround) : new Vector3(rightWallPos.x - farFromWall, rightWallPos.y + farFromGround);
 
         CheckFinishedJump(destination);
         
@@ -110,7 +109,7 @@ public class Boss_LungeAttackState : BossState
 
     protected float GetWallDirection()
     {
-        if (isLeftWallFarthest)
+        if (jumpToLeftWall)
         {
             return boss.transform.position.x < leftWallPos.x ? 1 : -1;
         }

@@ -68,22 +68,22 @@ public class BossState : EntityState
 
                 if (whichFarAttack >= 70)
                 {
-                    specialAttackTypes = BossSpecialAttackTypes.LungeAttack;
-                    stateMachine.ChangeState(boss.prepareLungeAttackState);
+                    specialAttackTypes = BossSpecialAttackTypes.LeapAttack;
+                    stateMachine.ChangeState(boss.prepareToAttackState);
                 }
 
                 else if (whichFarAttack >= 30)
                 {
                     // projectile state
                     specialAttackTypes = BossSpecialAttackTypes.LungeAttack;
-                    stateMachine.ChangeState(boss.prepareLungeAttackState);
+                    stateMachine.ChangeState(boss.prepareToAttackState);
                 }
 
                 else
                 {
                     // lunge attack
                     specialAttackTypes = BossSpecialAttackTypes.LungeAttack;
-                    stateMachine.ChangeState(boss.prepareLungeAttackState);
+                    stateMachine.ChangeState(boss.prepareToAttackState);
                 }
 
             }
