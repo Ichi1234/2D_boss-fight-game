@@ -51,7 +51,7 @@ public class Boss_MoveState : BossState
     {
         float playerDistance = GetDistanceBetweenPlayer();
 
-        if (boss.backWallDetected || farPlayerDistance < playerDistance)
+        if (boss.backWallDetected || boss.frontWallDetected || farPlayerDistance < playerDistance)
         {
             stateMachine.canChangeState = true;
             stateMachine.ChangeState(boss.idleState);

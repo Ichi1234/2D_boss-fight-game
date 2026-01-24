@@ -6,9 +6,9 @@ public class Player_Berserk : MonoBehaviour
     [Header("Berserk Details")]
     [SerializeField] private BerserkerStage[] berserkerStages;
     [Range(0, 10)]
-    [SerializeField] private float loundnessSensibility = 1;
+    [SerializeField] public float loundnessSensibility = 1;
+    [SerializeField] private UI_RageBar rageBar;
 
-    public AudioSource audioSource;
     public AudioLoundnessDetection detector;
     private float soundLevels;
 
@@ -25,6 +25,7 @@ public class Player_Berserk : MonoBehaviour
             soundLevels = 0;
         }
         Debug.Log(soundLevels);
+        rageBar.UpdateRageBar(soundLevels);
 
         foreach (var stage in berserkerStages)
         {

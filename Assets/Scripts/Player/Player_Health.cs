@@ -21,8 +21,10 @@ public class Player_Health : Entity_Health
     }
 
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+
         RegenerateHealth();
     }
 

@@ -19,6 +19,14 @@ public class Entity_Health : MonoBehaviour
         UpdateHealthUI();
     }
 
+    protected virtual void Update()
+    {
+        if (curHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     protected void UpdateHealthUI()
     {
         uiHealthbar.UpdateHealth(curHealth);

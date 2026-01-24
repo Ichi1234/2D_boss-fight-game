@@ -47,10 +47,6 @@ public class BossState : EntityState
     {
         base.Update();
 
-        if (Input.GetKey(KeyCode.P))
-        {
-            stateMachine.ChangeState(boss.leapAttackState);
-        }
 
         if (randomChangeState < attackChance)
         {
@@ -58,6 +54,10 @@ public class BossState : EntityState
 
             if (distanceFromPlayer <= nearPlayerDistance)
             {
+                if (Mathf.Abs(player.transform.position.x - boss.transform.position.x) <= 3f && player.transform.position.y > boss.transform.position.y)
+                {
+                    stateMachine.ChangeState(boss.lungeAttackState);
+                }
                 stateMachine.ChangeState(boss.basicAttackState);
             }
 
