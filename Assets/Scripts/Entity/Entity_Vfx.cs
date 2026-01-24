@@ -11,6 +11,8 @@ public class Entity_Vfx : MonoBehaviour
     private Material originalMat;
     private Coroutine onHitEffectCo;
 
+    public Color attackObjectColor = Color.white;
+
     private void Awake()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
@@ -19,6 +21,7 @@ public class Entity_Vfx : MonoBehaviour
     public void SpawnAttackObject()
     {
         attackVfx.gameObject.SetActive(true);
+        attackVfx.GetComponentInChildren<SpriteRenderer>().color = attackObjectColor;
     }
 
     public void CreateOnHitEffect()

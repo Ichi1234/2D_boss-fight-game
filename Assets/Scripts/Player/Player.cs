@@ -1,15 +1,8 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Player : Entity
 {
-
-    private Coroutine movementAnimationCo;
-    private Vector3 originalScale;
-
-    private Coroutine knockBackCo;
-
     public Player_IdleState idleState { get; private set; }
     public Player_MoveState moveState { get; private set; }
     public Player_JumpState jumpState { get; private set; }
@@ -22,11 +15,25 @@ public class Player : Entity
     public Vector2 moveInput { get; private set; }
     public PlayerInputSet input { get; private set; }
 
+    private Player_Health entityHealth;
+    public Player_Berserk playerBerserk;
+    private Entity_Vfx entityVfx;
+
+    private Vector3 originalScale;
+    private Coroutine movementAnimationCo;
+    private Coroutine knockBackCo;
+
+
     public float lastAttackTime { get; set; }
+
 
     protected override void Awake()
     {
         base.Awake();
+
+        entityVfx = GetComponent<Entity_Vfx>();
+        entityHealth = GetComponent<Player_Health>();
+        playerBerserk = GetComponent<Player_Berserk>();
 
         input = new PlayerInputSet();
 
@@ -46,8 +53,25 @@ public class Player : Entity
 
     }
 
+    protected override void Update()
+    {
+        base.Update();
+
+    }
+
+    private void HandleBerserkerStage()
+    {
+        moveSpeed = baseMoveSpeed * playerBerserk.curStage.movementSpeedMultiplier;
+        entityCombat.attackDamage = entityCombat.baseAttackDamage * playerBerserk.curStage.attackDamageMultiplier;
+        entityCombat.attackCooldown = entityCombat.baseAttackCoolDown * playerBerserk.curStage.attackCooldownMultiplier;
+        entityHealth.regenPerSecond = playerBerserk.curStage.regenerateHealthPerSecond;
+        entityVfx.attackObjectColor = playerBerserk.curStage.slashColor;
+    }
+
     private void OnEnable()
     {
+        Player_Berserk.OnStageChanged += HandleBerserkerStage;
+
         input.Enable();
 
         input.Player.Move.performed += context => moveInput = context.ReadValue<Vector2>();

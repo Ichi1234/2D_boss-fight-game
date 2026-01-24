@@ -5,6 +5,8 @@ public abstract class Entity_Combat : MonoBehaviour
     [Header("Attack Details")]
     public float attackDamage = 10;
     public float attackCooldown = 1;
+    public float baseAttackDamage { get; set; }
+    public float baseAttackCoolDown { get; set; }
 
     public Transform attackPosition;
   
@@ -14,6 +16,12 @@ public abstract class Entity_Combat : MonoBehaviour
     protected bool isHitOpponent = false;
 
     protected AttackData currentAttackData;
+
+    private void Awake()
+    {
+        baseAttackDamage = attackDamage;
+        baseAttackCoolDown = attackCooldown;
+    }
 
     public void SetAttackData(AttackData data)
     {

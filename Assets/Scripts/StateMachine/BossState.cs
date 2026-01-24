@@ -19,7 +19,6 @@ public class BossState : EntityState
     protected BossSpecialAttackTypes specialAttackTypes;
 
     protected float prepareAttackTime = 1;
-    private float lastLungeAttckTime;
     private float lastAttackTime;
 
     public BossState(Boss boss, StateMachine stateMachine, string animParam) : base(boss, stateMachine, animParam)
@@ -32,7 +31,6 @@ public class BossState : EntityState
         bossCombat = boss.GetComponent<Boss_Combat>();
         player = boss.GetPlayer();
 
-        lastLungeAttckTime -= boss.dashCooldown;
         lastAttackTime -= boss.entityCombat.attackCooldown;
     }
 
@@ -49,10 +47,6 @@ public class BossState : EntityState
     {
         base.Update();
 
-        if (Input.GetKey(KeyCode.P))
-        {
-            stateMachine.ChangeState(boss.leapAttackState);
-        }
 
         if (randomChangeState < attackChance)
         {
@@ -60,6 +54,11 @@ public class BossState : EntityState
 
             if (distanceFromPlayer <= nearPlayerDistance)
             {
+                if (Mathf.Abs(player.transform.position.x - boss.transform.position.x) <= 3f && player.transform.position.y > boss.transform.position.y)
+                {
+                    specialAttackTypes = BossSpecialAttackTypes.LeapAttack;
+                    stateMachine.ChangeState(boss.prepareToAttackState);
+                }
                 stateMachine.ChangeState(boss.basicAttackState);
             }
 
@@ -98,6 +97,5 @@ public class BossState : EntityState
 
     protected float GetDistanceBetweenPlayer() => Mathf.Abs(player.transform.position.x - boss.transform.position.x);
     protected float GetPlayerDirection() => boss.transform.position.x < player.transform.position.x ? 1 : -1;
-
 
 }

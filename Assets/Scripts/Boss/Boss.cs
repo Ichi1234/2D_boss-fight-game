@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Windows;
 
 public class Boss : Entity
 {
@@ -31,17 +30,20 @@ public class Boss : Entity
 
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
-        anim.SetBool("isIdle", true);
         bossVfx = GetComponent<Boss_Vfx>();
+        
+        anim.SetBool("isIdle", true);
 
         idleState = new Boss_IdleState(this, stateMachine, "isIdle");
         moveState = new Boss_MoveState(this, stateMachine, "isMoving");
-        
+
+        Arena arena = FindAnyObjectByType<Arena>();
+
         basicAttackState = new Boss_BasicAttackState(this, stateMachine, "isBasicAttack");
         prepareToAttackState = new Boss_PrepareToAttackState(this, stateMachine, "isPrepareAttack");
-        leapAttackState = new Boss_LeapAttackState(this, stateMachine, "isMoving");
+        leapAttackState = new Boss_LeapAttackState(this, stateMachine, "isMoving", arena);
         slamAttackState = new Boss_SlamAttackState(this, stateMachine, "isMoving");
-        lungeAttackState = new Boss_LungeAttackState(this, stateMachine, "isMoving", FindAnyObjectByType<Arena>());
+        lungeAttackState = new Boss_LungeAttackState(this, stateMachine, "isMoving", arena);
 
 
 

@@ -45,7 +45,7 @@ public class Player_AttackState : PlayerState
                 break;
             case PlayerAttackTypes.Down:
                 destinationPosition = new Vector2(0, -attackPositionDistance);
-                playerCombat.SetAttackData(new AttackData(playerCombat.attackDamage, 15, PlayerAttackTypes.Down));
+                playerCombat.SetAttackData(new AttackData(playerCombat.attackDamage, 10, PlayerAttackTypes.Down));
                 break;
 
         }

@@ -1,5 +1,3 @@
-using System.Collections;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
@@ -11,6 +9,7 @@ public abstract class Entity : MonoBehaviour
     public float dashDuration;
     public float dashCooldown = 5;
 
+    protected float baseMoveSpeed;
 
     [Header("Collision Detection")]
     [SerializeField] private float checkGroundLine;
@@ -18,7 +17,6 @@ public abstract class Entity : MonoBehaviour
 
     [Header("Attack Details")]
     public Entity_Combat entityCombat { get; private set; }
-
     protected Rigidbody2D rb;
     protected Animator anim;
     public bool canFlip = true;
@@ -35,6 +33,8 @@ public abstract class Entity : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
         entityCombat = GetComponent<Entity_Combat>();
+
+        baseMoveSpeed = moveSpeed;
 
         anim.SetBool("isIdle", true);
     }
