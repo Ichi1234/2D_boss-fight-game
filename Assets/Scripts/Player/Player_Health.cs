@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Player_Health : Entity_Health
 {
+    public float regenPerSecond = 0;
+
     public override bool TakeDamage(AttackData attackData, float attackDir, Collider2D targetCollision)
     {
         Entity_Vfx entityVfx = GetComponent<Entity_Vfx>();
@@ -16,5 +18,21 @@ public class Player_Health : Entity_Health
         }
 
         return true;
+    }
+
+
+    private void Update()
+    {
+        RegenerateHealth();
+    }
+
+    private void RegenerateHealth()
+    {
+        if (curHealth < maxHealth)
+        {
+            curHealth += regenPerSecond * Time.deltaTime;
+            curHealth = Mathf.Min(curHealth, maxHealth);
+            UpdateHealthUI();
+        }
     }
 }

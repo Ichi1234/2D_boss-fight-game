@@ -811,6 +811,7 @@ GameObject:
   - component: {fileID: 372218136}
   - component: {fileID: 372218138}
   - component: {fileID: 372218137}
+  - component: {fileID: 372218139}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -922,6 +923,7 @@ MonoBehaviour:
     m_Bits: 256
   canFlip: 1
   facingDir: 1
+  playerBerserk: {fileID: 0}
 --- !u!114 &372218136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -936,6 +938,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Entity_Vfx
   attackVfx: {fileID: 3528483140089254388}
   onHitMat: {fileID: 2100000, guid: a00013af81304728b2be1f4309ee2433, type: 2}
+  attackObjectColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &372218137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -968,6 +971,51 @@ MonoBehaviour:
   maxHealth: 100
   uiHealthbar: {fileID: 985965049}
   curHealth: 0
+  regenPerSecond: 0
+--- !u!114 &372218139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 372218131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0986bdebd2337b46afac80ec1a27f88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_Berserk
+  berserkerStages:
+  - threshold: 0
+    attackDamageMultiplier: 1
+    attackCooldownMultiplier: 1
+    movementSpeedMultiplier: 1
+    regenerateHealthPerSecond: 0
+    slashColor: {r: 1, g: 1, b: 1, a: 1}
+  - threshold: 0.25
+    attackDamageMultiplier: 1
+    attackCooldownMultiplier: 1
+    movementSpeedMultiplier: 1.25
+    regenerateHealthPerSecond: 1
+    slashColor: {r: 1, g: 1, b: 1, a: 1}
+  - threshold: 0.5
+    attackDamageMultiplier: 1.25
+    attackCooldownMultiplier: 0.85
+    movementSpeedMultiplier: 1.5
+    regenerateHealthPerSecond: 1
+    slashColor: {r: 1, g: 0.54901963, b: 0.54901963, a: 1}
+  - threshold: 0.7
+    attackDamageMultiplier: 1.5
+    attackCooldownMultiplier: 0.75
+    movementSpeedMultiplier: 1.75
+    regenerateHealthPerSecond: 1.5
+    slashColor: {r: 1, g: 0.48235294, b: 0.48235294, a: 1}
+  - threshold: 0.9
+    attackDamageMultiplier: 2
+    attackCooldownMultiplier: 0.5
+    movementSpeedMultiplier: 2
+    regenerateHealthPerSecond: 3
+    slashColor: {r: 1, g: 0.41568628, b: 0.41568628, a: 1}
+  soundLevels: 0.272
 --- !u!1 &423626480
 GameObject:
   m_ObjectHideFlags: 0
@@ -2368,7 +2416,7 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.55, y: 0.75}
+  m_Size: {x: 0.47, y: 0.5}
   m_Direction: 0
 --- !u!114 &1567457778
 MonoBehaviour:
@@ -2656,8 +2704,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.10701951, y: -0.059421025}
-  m_Size: {x: 0.97225064, y: 0.7887132}
+  m_Offset: {x: -0.14028625, y: -0.1758254}
+  m_Size: {x: 0.8187213, y: 0.44835702}
   m_Direction: 1
 --- !u!50 &2059069172
 Rigidbody2D:
@@ -2745,6 +2793,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Boss_Vfx
   attackVfx: {fileID: 1567457776}
   onHitMat: {fileID: 2100000, guid: a00013af81304728b2be1f4309ee2433, type: 2}
+  attackObjectColor: {r: 1, g: 1, b: 1, a: 1}
   smokePrefab: {fileID: 8422032922207994480, guid: fb210b050e2009f4eb29a8188b64a8b1, type: 3}
   bigSmokePrefab: {fileID: 2417838570579575918, guid: fd30b29a93a3cac4ca9372df5cf04e83, type: 3}
 --- !u!114 &2059069179
@@ -2929,7 +2978,7 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.63, y: 0.38}
+  m_Size: {x: 0.41, y: 0.38}
   m_Direction: 1
 --- !u!50 &7205202377667601658
 Rigidbody2D:

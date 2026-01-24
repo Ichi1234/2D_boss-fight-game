@@ -19,7 +19,7 @@ public class Entity_Health : MonoBehaviour
         UpdateHealthUI();
     }
 
-    private void UpdateHealthUI()
+    protected void UpdateHealthUI()
     {
         uiHealthbar.UpdateHealth(curHealth);
     }

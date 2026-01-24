@@ -19,7 +19,6 @@ public class BossState : EntityState
     protected BossSpecialAttackTypes specialAttackTypes;
 
     protected float prepareAttackTime = 1;
-    private float lastLungeAttckTime;
     private float lastAttackTime;
 
     public BossState(Boss boss, StateMachine stateMachine, string animParam) : base(boss, stateMachine, animParam)
@@ -32,7 +31,6 @@ public class BossState : EntityState
         bossCombat = boss.GetComponent<Boss_Combat>();
         player = boss.GetPlayer();
 
-        lastLungeAttckTime -= boss.dashCooldown;
         lastAttackTime -= boss.entityCombat.attackCooldown;
     }
 
