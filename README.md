@@ -1,4 +1,4 @@
-# 2D Boss Fight Game – Rage System Prototype
+# Raging Cacophony: A 2D Boss Fight Game – Rage System Prototype
 
 A 2D boss fight prototype inspired by *Hollow Knight*.
 
