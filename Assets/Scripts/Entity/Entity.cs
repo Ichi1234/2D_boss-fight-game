@@ -19,10 +19,10 @@ public abstract class Entity : MonoBehaviour
     public Entity_Combat entityCombat { get; private set; }
     protected Rigidbody2D rb;
     protected Animator anim;
-    public bool canFlip = true;
+    public bool canFlip { get; private set; } = true;
     public bool isGround { get; private set; }
 
-    public float facingDir = 1;
+    public float facingDir { get; private set; } = 1;
 
     public StateMachine stateMachine { get; private set; }
 
@@ -75,6 +75,8 @@ public abstract class Entity : MonoBehaviour
     {
         rb.linearVelocity = new Vector2(velocityX, velocityY);
     }
+
+    public void SetCanFlip(bool canFlip) => this.canFlip = canFlip;
 
     public virtual void HandleFlip()
     {
