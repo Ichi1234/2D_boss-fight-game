@@ -18,7 +18,8 @@ public class Boss : Entity
     public Boss_LeapAttackState leapAttackState { get; private set; }
     public Boss_SlamAttackState slamAttackState { get; private set; }
     public Boss_PrepareToAttackState prepareToAttackState { get; private set; }
-    public Boss_LungeAttackState lungeAttackState { get; private set; }
+    public Boss_LungeJumpToWallState lungeAttackToWallState { get; private set; }
+    public Boss_LungeDashState lungeDashState { get; private set; }
 
     private Boss_Vfx bossVfx;
     private Coroutine lungeAttackFinishedCo;
@@ -43,7 +44,8 @@ public class Boss : Entity
         prepareToAttackState = new Boss_PrepareToAttackState(this, stateMachine, "isPrepareAttack");
         leapAttackState = new Boss_LeapAttackState(this, stateMachine, "isMoving", arena);
         slamAttackState = new Boss_SlamAttackState(this, stateMachine, "isMoving");
-        lungeAttackState = new Boss_LungeAttackState(this, stateMachine, "isMoving", arena);
+        lungeAttackToWallState = new Boss_LungeJumpToWallState(this, stateMachine, "isMoving", arena);
+        lungeDashState = new Boss_LungeDashState(this, stateMachine, "isLungeAttack");
 
 
 
